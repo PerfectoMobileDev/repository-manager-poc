@@ -12,19 +12,31 @@ S3_HTTP_BASE_URL=https://s3.amazonaws.com/perfecto-aws-devops-temp-for-builds/$S
 SOURCE_TEMPLATE_DIR=$LOCAL_TEMPLATE_LOCATION
 TEMP_TEMPLATE_DIR=$LOCAL_TEMPLATE_LOCATION/temp
 
+if [ -d "$TEMP_TEMPLATE_DIR" ]; then
+  rm -rf $TEMP_TEMPLATE_DIR
+fi
+
 mkdir $TEMP_TEMPLATE_DIR
 
 cp $SOURCE_TEMPLATE_DIR/* $TEMP_TEMPLATE_DIR
 
 GIT_REVISION=`git rev-parse HEAD`
 
-MAPPINGS=`cat $SOURCE_TEMPLATE_DIR/mappings.json | tr -d " \t\n\r"`
+# MAPPINGS=`cat $SOURCE_TEMPLATE_DIR/mappings.json | tr -d " \t\n\r"`
 
-for FILENAME in $TEMP_TEMPLATE_DIR/*; do
-    sed -r -i 's@<S3_BASE_URL>@'$S3_HTTP_BASE_URL'@g' $FILENAME
-    sed -r -i 's@<GIT_REVISION>@'$GIT_REVISION'@g' $FILENAME
-    sed -r -i 's@"Mappings" : \{\}@"Mappings" : '$MAPPINGS'@g' $FILENAME
-done
+if [[ "$OSTYPE" == "darwin"* ]]; then
+     for FILENAME in $TEMP_TEMPLATE_DIR/*; do
+        sed -i 's@<S3_BASE_URL>@'$S3_HTTP_BASE_URL'@g' $FILENAME
+        sed -i 's@<GIT_REVISION>@'$GIT_REVISION'@g' $FILENAME
+        # sed -r -i 's@"Mappings" : \{\}@"Mappings" : '$MAPPINGS'@g' $FILENAME
+    done   
+else
+    for FILENAME in $TEMP_TEMPLATE_DIR/*; do
+        sed -r -i 's@<S3_BASE_URL>@'$S3_HTTP_BASE_URL'@g' $FILENAME
+        sed -r -i 's@<GIT_REVISION>@'$GIT_REVISION'@g' $FILENAME
+        # sed -r -i 's@"Mappings" : \{\}@"Mappings" : '$MAPPINGS'@g' $FILENAME
+    done
+fi
 
 ORIGINAL_REGION=$AWS_DEFAULT_REGION
 export AWS_DEFAULT_REGION="us-east-1"
@@ -44,5 +56,5 @@ echo Stack Name: "$STACK_NAME"
 
 sudo npm install -g cfn-create-or-update
 
-cfn-create-or-update --stack-name $STACK_NAME --template-url $S3_HTTP_BASE_URL/$TEMPLATE_NAME  --parameters "$STACK_PARAMS" --capabilities CAPABILITY_IAM --wait
+# cfn-create-or-update --stack-name $STACK_NAME --template-url $S3_HTTP_BASE_URL/$TEMPLATE_NAME  --parameters "$STACK_PARAMS" --capabilities CAPABILITY_IAM --wait
 exit $?

@@ -1,5 +1,9 @@
 {
     "AWSTemplateFormatVersion" : "2010-09-09",
+
+    "Metadata" : {
+      "GitRevision": "<GIT_REVISION>"
+    },
     
     "Description" : "S3 bucket for repository",
   
