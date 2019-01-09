@@ -26,8 +26,8 @@ GIT_REVISION=`git rev-parse HEAD`
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
      for FILENAME in $TEMP_TEMPLATE_DIR/*; do
-        sed -i 's@<S3_BASE_URL>@'$S3_HTTP_BASE_URL'@g' $FILENAME
-        sed -i 's@<GIT_REVISION>@'$GIT_REVISION'@g' $FILENAME
+        sed -i "" 's@<S3_BASE_URL>@'$S3_HTTP_BASE_URL'@g' $FILENAME
+        sed -i "" 's@<GIT_REVISION>@'$GIT_REVISION'@g' $FILENAME
         # sed -r -i 's@"Mappings" : \{\}@"Mappings" : '$MAPPINGS'@g' $FILENAME
     done   
 else
@@ -55,6 +55,6 @@ echo Stack Params: "$STACK_PARAMS"
 echo Stack Name: "$STACK_NAME"
 
 sudo npm install -g cfn-create-or-update
-
-# cfn-create-or-update --stack-name $STACK_NAME --template-url $S3_HTTP_BASE_URL/$TEMPLATE_NAME  --parameters "$STACK_PARAMS" --capabilities CAPABILITY_IAM --wait
+export AWS_DEFAULT_REGION=`aws configure get region`
+cfn-create-or-update --stack-name $STACK_NAME --template-url $S3_HTTP_BASE_URL/$TEMPLATE_NAME  --parameters "$STACK_PARAMS" --capabilities CAPABILITY_IAM --wait
 exit $?
