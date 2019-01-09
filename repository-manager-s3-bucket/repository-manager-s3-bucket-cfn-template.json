@@ -1,0 +1,41 @@
+{
+    "AWSTemplateFormatVersion" : "2010-09-09",
+    
+    "Description" : "S3 bucket for repository",
+  
+    "Parameters" : {
+  
+      "Environment": {
+        "Type": "String",
+        "Description": "The environment in which the bucket is to be deployed. Required for enabling the sending of the access logs to CloudWatch. Leave empty if you do not want the ELB access logs to be sent to CloudWatch.",
+        "AllowedValues" : [ "dev", "staging", "production","ci",""],
+        "ConstraintDescription" : "must be one of the following values: 'dev', 'staging', 'production','ci'",
+        "Default": ""
+      }
+  
+    },
+  
+    "Resources" : {
+  
+      "S3Bucket" : {
+        "Type" : "AWS::S3::Bucket",
+        "Properties" : {
+          "BucketName" :  { "Fn::Join" : ["-", ["perfecto-repository", { "Ref" : "Environment" } , { "Ref" : "AWS::Region" } ]]},
+          "Tags" : [
+            {
+              "Key" : "project",
+              "Value" : "repository-manager"
+            }
+          ]
+        },
+        "DeletionPolicy" : "Retain"
+      }
+    },
+    
+    "Outputs" : {
+      "BucketName" :  {
+        "Description" : "The name of the created S3 bucket",
+        "Value" :  { "Fn::Join" : ["-", ["perfecto-repository", { "Ref" : "Environment" } , { "Ref" : "AWS::Region" } ]]}
+      }
+    }
+  }
