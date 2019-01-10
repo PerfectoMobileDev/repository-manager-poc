@@ -1,5 +1,6 @@
 import pytest
-import upload-link as ul
+import handlers.upload_link as ul
 
 def test__get_upload_link():
-    ul.get_upload_link('test-bucket','/myfolder/myfile')
+    assert ul.func() == 1
+    # ul.get_upload_link('test-bucket','/myfolder/myfile')

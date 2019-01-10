@@ -77,7 +77,7 @@ provider:
 
 functions:
   get-upload-link:
-    handler: upload-link.get_handler
+    handler: handlers/upload_link.get_handler
     events:
       # - http: GET /upload-link
       - http: GET /upload-link/{path+}

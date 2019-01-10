@@ -22,3 +22,7 @@ var/
 
 # node modules
 node_modules
+
+# pytest stuff
+__pycache__
+.pytest_cache

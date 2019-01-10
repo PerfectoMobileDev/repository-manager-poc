@@ -8,11 +8,12 @@ def get_handler(event, context):
     s3_bucket_name = os.environ['BUCKET_NAME']
     return get_upload_link(path,s3_bucket_name)
 
-
+def func():
+    return 1
 
 def get_upload_link(path, s3_bucket_name):
 
-        # Get the service client
+    # Get the service client
     s3 = boto3.client('s3')
 
     # Generate the POST attributes
