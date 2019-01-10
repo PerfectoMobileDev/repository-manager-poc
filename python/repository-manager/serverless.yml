@@ -17,6 +17,27 @@ service: repository-manager # NOTE: update this with your service name
 # Check out our docs for more details
 # frameworkVersion: "=X.X.X"
 
+plugins:
+  - serverless-python-requirements
+
+custom:
+  region: ${opt:region, self:provider.region}
+  pythonRequirements:
+    dockerizePip: non-linux
+    # not deploying dev depsndencies
+    noDeploy:
+      # pytest and all its dependencies
+      - pytest
+      - atomicwrites
+      - attrs
+      - funcsigs
+      - more-itertools
+      - pathlib2
+      - pluggy
+      - py
+      - pytest
+      - urllib3
+
 provider:
   name: aws
   runtime: python2.7
@@ -55,11 +76,13 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  hello:
-    handler: handler.hello
+  get-upload-link:
+    handler: upload-link.get_handler
     events:
-      - http: ANY /
-      - http: 'ANY {proxy+}'
+      # - http: GET /upload-link
+      - http: GET /upload-link/{path+}
+    environment:
+      BUCKET_NAME: perfecto-repository-${opt:stage}-${self:custom.region}
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
