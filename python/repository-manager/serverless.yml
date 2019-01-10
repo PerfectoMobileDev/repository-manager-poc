@@ -23,6 +23,7 @@ plugins:
 custom:
   region: ${opt:region, self:provider.region}
   pythonRequirements:
+    fileName: requirements-prod.txt
     dockerizePip: non-linux
     # not deploying dev depsndencies
     noDeploy:
