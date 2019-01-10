@@ -1,0 +1,39 @@
+Serverless Project Setup
+
+Python
+
+Links:
+https://serverless.com/framework/docs/providers/aws/examples/hello-world/python/
+https://serverless.com/blog/serverless-python-packaging/ 
+https://www.serverlessops.io/blog/aws-lambda-serverless-development-workflow-part2-testing-debugging
+
+Create project
+sls create --template aws-python --path <path to project folder>
+npm install --save serverless-python-requirements
+
+Add the following to serverless.yml
+
+plugins:
+  - serverless-python-requirements
+
+Development:
+------------
+cd <path to project folder>
+npm install (???)
+virtualenv env --python=python2
+source env/bin/activate
+
+Adding prod dependencies (when env is activated):
+pip install <whatever>
+pip freeze > requirements-prod.txt
+
+Adding prod dependencies (when env is activated):
+pip install <whatever>
+pip freeze > requirements-dev.txt
+
+
+
+Deploy: 
+serverless deploy --stage dev
+
+

@@ -21,14 +21,14 @@ def get_upload_link(path, s3_bucket_name):
         Bucket=s3_bucket_name,
         Key=path
     )
-
+    print post
     # test upload link
     files = {"file": "file_content"}
     uploadResponse = requests.post(post["url"], data=post["fields"], files=files)
-
+    print uploadResponse.text
     body = {
         "message": post,
-        "input": event,
+        # "input": event,
         "uploadResponse": uploadResponse
     }
 
