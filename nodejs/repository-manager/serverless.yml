@@ -4,7 +4,7 @@ frameworkVersion: ">=1.1.0 <2.0.0"
 
 provider:
   name: aws
-  runtime: nodejs4.3
+  runtime: nodejs8.10
 
 functions:
   getUploadLink:
@@ -13,3 +13,5 @@ functions:
       - http:
           path: uploadlink/{id}
           method: get
+    environment:
+      BUCKET_NAME: perfecto-repository-${opt:stage}-${self:custom.region}
