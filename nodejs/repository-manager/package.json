@@ -13,5 +13,8 @@
     "aws-sdk": "^2.387.0",
     "express": "^4.16.4",
     "serverless-http": "^1.8.0"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0"
   }
 }
