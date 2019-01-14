@@ -5,13 +5,23 @@ frameworkVersion: ">=1.1.0 <2.0.0"
 provider:
   name: aws
   runtime: nodejs8.10
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:PutObject
+        - s3:GetObject
+      Resource:
+        - 'arn:aws:s3:::perfecto-repository-${opt:stage}-${self:custom.region}*'
+
+custom:
+  region: ${opt:region, self:provider.region}
 
 functions:
   getUploadLink:
     handler: handlers/getUploadLink.handle
     events:
       - http:
-          path: uploadlink/{id}
+          path: uploadlink/{id+}
           method: get
     environment:
       BUCKET_NAME: perfecto-repository-${opt:stage}-${self:custom.region}

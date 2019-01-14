@@ -1,11 +1,21 @@
 'use strict';
 
+const AWS = require('aws-sdk');
+
 module.exports.handle = (event, context, callback) => {
 
   var bucketName = process.env.BUCKET_NAME;
-  var path=pathParameters.id;
+  var path = event.pathParameters.id;
 
-  var params = {Bucket: bucketName, Key: path};
+  let s3 = new AWS.S3({
+    signatureVersion: 'v4',
+  });
+
+  var params = {
+    Bucket: bucketName, 
+    Key: path,
+    ContentType: 'application/octet-stream'
+  };
   var url = s3.getSignedUrl('putObject', params);
 
 
@@ -13,7 +23,7 @@ module.exports.handle = (event, context, callback) => {
     event: event,
     url: url
   }
-  
+
   // create a response
   const response = {
     statusCode: 200,
