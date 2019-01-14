@@ -40,3 +40,15 @@ Also lambda must have the permissions to write to the bucket as described in htt
 curl -v -H "Content-Type: application/octet-stream" -T /Users/mosheb/Downloads/2018-04-11_12h53_41.png "https://perfecto-repository-dev-us-east-1.s3.amazonaws.com/mynodefolder/myfile?Content-Type=application%2Foctet-stream&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIA572PGX2EZFUUEOGY%2F20190113%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20190113T152716Z&X-Amz-Expires=900&X-Amz-Security-Token=FQoGZXIvYXdzEJf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDDhX9ARvrFXhArrGniKMAuF918wBV%2B5e1k5oHlNWMUvMdVQXtfyDrLuBuzJ5qNQfEg1Y0Rpue5mcJz8v04%2FZxZLZshGC7mqmmW7AyG%2B11H76ZFxZiLH5bZPlH7J9YliGYCeWCMwaNyWCJBOxehSZGyZURdQk%2BmPx8JEJiJLbpmyCKDgtI4BgfeFoWK8Zu1lntWUdW8caM9d5j6%2FyJtJjtr%2BYx0E%2BpW8s%2BB5zZ6Dx3JJW3oQ%2Bk41li%2FXJa5y3VkHjyDojl6Rvad6%2FCafb9zD%2BYLwNDWzF%2Ba2%2FoRLkEFphq5NCYgqbZpHd%2FZWsIdRPa71RcpsXuejQaALhtia1KS%2B8US6vRO97bTnfPptVxaTqvVkLywP7LrIPFLCO9nUoy4ft4QU%3D&X-Amz-Signature=402c98cb95726a0d7a4e8d5bb8a64a14d6aeac49d27d54d443e107f3c0a68097&X-Amz-SignedHeaders=host"
 
 
+Unit tests
+
+Installed Jest:
+npm install --save-dev jest
+
+run tests:
+
+./node_modules/.bin/jest
+
+
+Open issues:
+1. How to debug tests in Intellij/VSCode?
