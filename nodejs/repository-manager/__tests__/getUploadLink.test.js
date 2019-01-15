@@ -1,46 +1,35 @@
 // __tests__/handler.test.js
 const getUploadLinkHandler = require('../handlers/getUploadLink');
-const https = require('https');
+var fs = require('fs');
+var req = require('request');
 
-test('correct response code', done => {
+test('upload link', done => {
+
+    const bucketName = "perfecto-repository-dev-us-east-1";
+    const objectPath = "mytestfolder/mytestartifact";
     
-    const getUploadLinkResponse = getUploadLinkHandler.getUploadLink("perfecto-repository-dev-us-east-1}","mytestfolder/mytestartifact");
+    // get upload link
+    const getUploadLinkResponse = getUploadLinkHandler.getUploadLink(bucketName,objectPath);
     expect(getUploadLinkResponse.statusCode).toBe(200);
-    const body = JSON.parse(getUploadLinkResponse.body)
-    
-    var options = {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/octet-stream'
+    const body = JSON.parse(getUploadLinkResponse.body);
+
+    // use the link to upload artifact
+    fs.readFile('./__tests__/test.png', function(err, data){
+        if(err){
+          return console.log(err);
         }
-    };
-
-    var req= https.request(body.url,options, (resp) => {
-        expect(resp.statusCode).toBe(200);
-        let data = '';
-      
-        // A chunk of data has been recieved.
-        resp.on('data', (chunk) => {
-          data += chunk;
-        });
-      
-        // The whole response has been received. Print out the result.
-        resp.on('end', () => {
-          console.log(data);
-          done();
-        });
-      
+        req({
+          method: "PUT",
+          url: body.url,
+          body: data
+        }, function(err, res, body){
+            expect(res.statusCode).toBe(200);
+            console.log("err:" + JSON.stringify(err));
+            console.log("res:" + JSON.stringify(res));
+            console.log("body:" + JSON.stringify(body));
+            done();
+        })
       });
-      
-      req.on("error", (err) => {
-        console.log("Error: " + err.message);
-        //expect(true).toBe(false);
-      });
-      
-      req.write("kuku");
 
-      req.end();
-
-    
-
+      // check object exists
 });
