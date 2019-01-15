@@ -10,8 +10,8 @@ const objectPath = "mytestfolder/mytestartifact";
 
 var getUploadLinkResponse;
 
-beforeAll(() => {
-    validateObjectExistance(false,bucketName,objectPath)
+test('validate test object does not exist before test', done => {
+    validateObjectExistance(false,bucketName,objectPath, done)
 });
 
 test('create upload link', () => {
@@ -61,10 +61,8 @@ function validateObjectExistance(exists, bucketName, objectPath, done) {
         }
         expect(objectExists).toBe(exists);
 
-        if(typeof done !== 'undefined')  {
-            // this tells Jest that the asynchronous test has ended
-            done();
-        }
+        // this tells Jest that the asynchronous test has ended
+        done();
     });
     
 }
