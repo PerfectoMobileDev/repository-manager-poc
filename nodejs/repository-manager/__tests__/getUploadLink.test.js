@@ -1,16 +1,23 @@
 // __tests__/handler.test.js
 const getUploadLinkHandler = require('../handlers/getUploadLink');
-var fs = require('fs');
-var req = require('request');
+const fs = require('fs');
+const req = require('request');
+const AWS = require('aws-sdk');
 
-test('upload link', done => {
 
-    const bucketName = "perfecto-repository-dev-us-east-1";
-    const objectPath = "mytestfolder/mytestartifact";
-    
+const bucketName = "perfecto-repository-dev-us-east-1";
+const objectPath = "mytestfolder/mytestartifact";
+
+var getUploadLinkResponse;
+
+test('create upload link', () => {
     // get upload link
-    const getUploadLinkResponse = getUploadLinkHandler.getUploadLink(bucketName,objectPath);
+    getUploadLinkResponse = getUploadLinkHandler.getUploadLink(bucketName,objectPath);
     expect(getUploadLinkResponse.statusCode).toBe(200);
+});
+    
+test('use upload link', done => {
+    
     const body = JSON.parse(getUploadLinkResponse.body);
 
     // use the link to upload artifact
@@ -27,9 +34,29 @@ test('upload link', done => {
             console.log("err:" + JSON.stringify(err));
             console.log("res:" + JSON.stringify(res));
             console.log("body:" + JSON.stringify(body));
-            done();
+            // check object exists
+            validateObjectExists(bucketName,objectPath, done)
         })
       });
-
-      // check object exists
 });
+
+function validateObjectExists(bucketName, objectPath, done) {
+    let s3 = new AWS.S3;
+    var params = {
+        Bucket: bucketName,
+        Key: objectPath
+    };
+    var objectExists = false;
+    s3.getObject(params, function (err, data) {
+        if (err){
+            console.log(err, err.stack); // an error occurred
+        } else {
+            objectExists = true;
+            console.log(data);
+        }
+        expect(objectExists).toBe(true);
+        done();
+    });
+    
+}
+
