@@ -18,16 +18,14 @@ pipeline {
     }
 
     stages {
-        // stage('Build Lambda') {
-        //     steps {
-        //         sh 'cd resources && npm install'
-        //     }
-        // }
+        stage('Tests') {
+            steps {
+                sh 'cd nodejs/repository-manager && npm install && ./node_modules/.bin/jest'
+            }
+        }
        stage('Install Serverless') {
             steps {
                 sh 'sudo npm install -g serverless'
-                // sh 'npm install'
-                // sh 'npm run build'
             }
         }
         stage('Serverless Command') {
