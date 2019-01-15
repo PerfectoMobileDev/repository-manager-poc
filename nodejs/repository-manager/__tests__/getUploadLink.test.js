@@ -10,6 +10,10 @@ const objectPath = "mytestfolder/mytestartifact";
 
 var getUploadLinkResponse;
 
+test('validate test object does not exist before test', done => {
+    validateObjectExists(false,bucketName,objectPath, done)
+});
+
 test('create upload link', () => {
     // get upload link
     getUploadLinkResponse = getUploadLinkHandler.getUploadLink(bucketName,objectPath);
@@ -35,12 +39,13 @@ test('use upload link', done => {
             console.log("res:" + JSON.stringify(res));
             console.log("body:" + JSON.stringify(body));
             // check object exists
-            validateObjectExists(bucketName,objectPath, done)
+            validateObjectExists(true,bucketName,objectPath, done)
         })
       });
 });
 
-function validateObjectExists(bucketName, objectPath, done) {
+// exists should be true or false, depending on whether you expect the object to exist or not
+function validateObject(exists, bucketName, objectPath, done) {
     let s3 = new AWS.S3;
     var params = {
         Bucket: bucketName,
@@ -54,7 +59,9 @@ function validateObjectExists(bucketName, objectPath, done) {
             objectExists = true;
             console.log(data);
         }
-        expect(objectExists).toBe(true);
+        expect(objectExists).toBe(exists);
+
+        // this tells Jest that the asynchronous test has ended
         done();
     });
     
