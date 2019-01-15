@@ -13,7 +13,7 @@ var getUploadLinkResponse;
 test('create upload link', () => {
     // get upload link
     getUploadLinkResponse = getUploadLinkHandler.getUploadLink(bucketName,objectPath);
-    expect(getUploadLinkResponse.statusCode).toBe(300);
+    expect(getUploadLinkResponse.statusCode).toBe(200);
 });
     
 test('use upload link', done => {
