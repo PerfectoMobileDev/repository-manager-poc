@@ -32,7 +32,7 @@ pipeline {
         }
         stage('Serverless Command') {
             steps {
-                sh "pwd && sls ${params.ServerlessCommand} -v --stage ${params.Account}"
+                sh "cd nodejs/repository-manager && sls ${params.ServerlessCommand} -v --stage ${params.Account}"
             }
         }
     }
