@@ -11,7 +11,7 @@ const objectPath = "mytestfolder/mytestartifact";
 var getUploadLinkResponse;
 
 test('validate test object does not exist before test', done => {
-    validateObjectExists(false,bucketName,objectPath, done)
+    validateObjectExistance(false,bucketName,objectPath, done)
 });
 
 test('create upload link', () => {
@@ -39,13 +39,13 @@ test('use upload link', done => {
             console.log("res:" + JSON.stringify(res));
             console.log("body:" + JSON.stringify(body));
             // check object exists
-            validateObjectExists(true,bucketName,objectPath, done)
+            validateObjectExistance(true,bucketName,objectPath, done)
         })
       });
 });
 
 // exists should be true or false, depending on whether you expect the object to exist or not
-function validateObject(exists, bucketName, objectPath, done) {
+function validateObjectExistance(exists, bucketName, objectPath, done) {
     let s3 = new AWS.S3;
     var params = {
         Bucket: bucketName,
