@@ -32,7 +32,7 @@ pipeline {
         }
         stage('Serverless Command') {
             steps {
-                sh "sls ${params.ServerlessCommand} -v --stage ${params.Account}"
+                sh "pwd && sls ${params.ServerlessCommand} -v --stage ${params.Account}"
             }
         }
     }
