@@ -10,8 +10,12 @@ const objectPath = "mytestfolder/mytestartifact";
 
 var getUploadLinkResponse;
 
-test('validate test object does not exist before test', done => {
-    validateObjectExistance(false,bucketName,objectPath, done)
+beforeAll(() => {
+    deleteObject(false,bucketName,objectPath);
+});
+
+afterAll(() => {
+    deleteObject(true,bucketName,objectPath);
 });
 
 test('create upload link', () => {
@@ -65,5 +69,22 @@ function validateObjectExistance(exists, bucketName, objectPath, done) {
         done();
     });
     
+}
+
+function deleteObject(throwErrorOnFailure, bucketName, objectPath){
+    var params = {
+        Bucket: bucketName, 
+        Key: objectPath
+       };
+       await s3.deleteObject(params, function(err, data) {
+         if (err) {
+             console.log(err, err.stack); // an error occurred
+             if (throwErrorOnFailure){
+                 throw new Error("Can't delete object")
+             }
+         }
+         else     
+            console.log(data);           // successful response
+       });
 }
 

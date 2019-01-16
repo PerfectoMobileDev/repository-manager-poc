@@ -1,5 +1,5 @@
 pipeline {
-    agent {label 'generic-slaves-new'}
+    agent {label 'generic-slaves'}
     parameters {
         choice(name: 'Account', choices: ['dev', 'staging', 'production', 'R&D'], description: 'The account to deploy the monitor on')
         choice(name: 'ServerlessCommand', choices: ['deploy', '--version'], description: 'The Serverless command to run')
