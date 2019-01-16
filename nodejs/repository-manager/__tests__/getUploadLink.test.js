@@ -6,17 +6,17 @@ const AWS = require('aws-sdk');
 
 
 const bucketName = "perfecto-repository-dev-us-east-1";
-const objectPath = "mytestfolder/mytestartifact";
+const objectPath = "testfolder/mytestartifact" + ((new Date()).getTime());
 
 var getUploadLinkResponse;
 
-beforeAll(() => {
-    deleteObject(false,bucketName,objectPath);
-});
+// beforeAll(async (done) => {
+//     deleteObject(false,bucketName,objectPath, done);
+// })
 
-afterAll(() => {
-    deleteObject(true,bucketName,objectPath);
-});
+// afterAll(async (done) => {
+//     deleteObject(false,bucketName,objectPath, done);
+// })
 
 test('create upload link', () => {
     // get upload link
@@ -71,20 +71,23 @@ function validateObjectExistance(exists, bucketName, objectPath, done) {
     
 }
 
-function deleteObject(throwErrorOnFailure, bucketName, objectPath){
+function deleteObject(throwErrorOnFailure, bucketName, objectPath, done){
+    let s3 = new AWS.S3;
     var params = {
         Bucket: bucketName, 
         Key: objectPath
-       };
-       await s3.deleteObject(params, function(err, data) {
-         if (err) {
-             console.log(err, err.stack); // an error occurred
-             if (throwErrorOnFailure){
-                 throw new Error("Can't delete object")
-             }
-         }
-         else     
-            console.log(data);           // successful response
-       });
+    };
+    s3.deleteObject(params, function(err, data) {
+        if (err) {
+            console.log(err, err.stack); // an error occurred
+            if (throwErrorOnFailure){
+                throw new Error("Can't delete object")
+            }
+        }
+        else{     
+            console.log(JSON.stringify(data));           // successful response
+            done();
+        }
+    });
 }
 
