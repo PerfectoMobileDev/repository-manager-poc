@@ -1,0 +1,52 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'repository-manager
+
+  Sample SAM Template for sam-app
+
+  '
+Globals:
+  Function:
+    Timeout: 3
+Outputs:
+  GetUploadLinkApi:
+    Description: API Gateway endpoint URL for Prod stage for Hello World function
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/
+  GetUploadLinkFunction:
+    Description: Hello World Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - GetUploadLinkFunction
+      - Arn
+  GetUploadLinkFunctionIamRole:
+    Description: Implicit IAM Role created for Hello World function
+    Value:
+      Fn::GetAtt:
+      - GetUploadLinkFunctionRole
+      - Arn
+Parameters:
+  Env:
+    AllowedValues:
+    - dev
+    - staging
+    - production
+    Default: dev
+    Description: The environment to deploy the applicaton in.
+    Type: String
+Resources:
+  GetUploadLinkFunction:
+    Properties:
+      CodeUri: s3://perfecto-sam-dev-deployment-packages/0133078455cde55073231616035cb238
+      Environment:
+        Variables:
+          BUCKET_NAME: perfecto-repository-${Ref:Env}-${AWS::Region}
+      Events:
+        GetUploadLink:
+          Properties:
+            Method: get
+            Path: uploadlink/{id+}
+          Type: Api
+      Handler: handlers/getUploadLink.handle
+      Runtime: nodejs8.10
+    Type: AWS::Serverless::Function
+Transform: AWS::Serverless-2016-10-31
