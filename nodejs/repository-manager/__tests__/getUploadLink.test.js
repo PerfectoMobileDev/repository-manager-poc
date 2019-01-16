@@ -10,13 +10,9 @@ const objectPath = "testfolder/mytestartifact" + ((new Date()).getTime());
 
 var getUploadLinkResponse;
 
-// beforeAll(async (done) => {
-//     deleteObject(false,bucketName,objectPath, done);
-// })
-
-// afterAll(async (done) => {
-//     deleteObject(false,bucketName,objectPath, done);
-// })
+afterAll(async (done) => {
+    deleteObject(false,bucketName,objectPath, done);
+})
 
 test('create upload link', () => {
     // get upload link
