@@ -65,6 +65,21 @@ sam deploy \
     --capabilities CAPABILITY_IAM \
     --region us-east-1
 
+
+test:
+
+https://mctllfjsu4.execute-api.us-east-1.amazonaws.com/stage/uploadlink/samfolder/samobject
+
 Open issues:
 1. How to debug tests in Intellij/VSCode?
 2. Add CORS and expiration to CloudFormation for bucket
+3. Fight cold start: https://serverless.com/blog/keep-your-lambdas-warm/
+4. Local lambda run
+5. Language - which one?
+6. Verdion management - by git tag? Lambda support?
+7. Logs.
+8. Layers
+9. Discovery (Route53? CloudMap?)
+10. authentication and autothrization?
+11. Metrics (pricing?)
+12. Guidelines: When is it recommended (Costs, performance)
