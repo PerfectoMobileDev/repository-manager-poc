@@ -76,10 +76,18 @@ Open issues:
 3. Fight cold start: https://serverless.com/blog/keep-your-lambdas-warm/
 4. Local lambda run
 5. Language - which one?
-6. Verdion management - by git tag? Lambda support?
+6. Version management - by git tag? Lambda support?
 7. Logs.
 8. Layers
 9. Discovery (Route53? CloudMap?)
 10. authentication and autothrization?
 11. Metrics (pricing?)
 12. Guidelines: When is it recommended (Costs, performance)
+
+Local invocation (not really good enough, we want to functioj to run behind API gateway):
+https://serverless.com/framework/docs/providers/aws/cli-reference/invoke-local/
+
+serverless-offline (allows running locally behind API Gateway) (JavaScript, Pyhton and Ruby only):
+https://www.npmjs.com/package/serverless-offline
+
+

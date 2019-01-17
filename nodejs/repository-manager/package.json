@@ -10,13 +10,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.387.0",
-    "express": "^4.16.4",
-    "serverless-http": "^1.8.0"
+    "aws-sdk": "^2.387.0"
   },
   "devDependencies": {
     "fs": "0.0.1-security",
     "jest": "^23.6.0",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "serverless-offline": "^4.1.3"
   }
 }
