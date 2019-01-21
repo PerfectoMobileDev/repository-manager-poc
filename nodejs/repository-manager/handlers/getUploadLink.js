@@ -2,7 +2,14 @@
 
 const AWS = require('aws-sdk');
 
+// Example for using a layer
+//const KeyCloakAuthentication = require('keycloak-authentication')
+
 module.exports.handle = (event, context, callback) => {
+
+  // example for using a layer
+  console.log("Calling KeyCloak...");
+  KeyCloakAuthentication.printMsg();
 
   var bucketName = process.env.BUCKET_NAME;
   var path = event.pathParameters.id;

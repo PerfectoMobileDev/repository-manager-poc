@@ -4,7 +4,6 @@ const fs = require('fs');
 const req = require('request');
 const AWS = require('aws-sdk');
 
-
 const bucketName = "perfecto-repository-dev-us-east-1";
 const objectPath = "testfolder/mytestartifact" + ((new Date()).getTime());
 

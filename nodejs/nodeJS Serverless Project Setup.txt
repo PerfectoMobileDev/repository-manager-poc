@@ -78,11 +78,14 @@ Open issues:
 5. Language - which one?
 6. Version management - by git tag? Lambda support?
 7. Logs.
-8. Layers
-9. Discovery (Route53? CloudMap?)
-10. authentication and autothrization?
-11. Metrics (pricing?)
-12. Guidelines: When is it recommended (Costs, performance)
+8. Layers - done, not sure we need it.
+9. Internal/External services: by default services are public, and we have authentication. If we need private, we can use resource policies as described here:
+    https://github.com/serverless/serverless/issues/4926 
+10. Discovery (Route53? CloudMap?)
+11. authentication and autothrization?
+12. Metrics (pricing?)
+13. Guidelines: When is it recommended (Costs, performance)
+14. WAF (https://aws.amazon.com/blogs/compute/amazon-api-gateway-adds-support-for-aws-waf/)
 
 Local invocation (not really good enough, we want to functioj to run behind API gateway):
 https://serverless.com/framework/docs/providers/aws/cli-reference/invoke-local/
