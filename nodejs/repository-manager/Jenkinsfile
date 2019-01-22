@@ -1,24 +1,31 @@
+library 'prefecto-global-libs@master'
 pipeline {
     agent {label 'generic-slaves'}
     parameters {
-        choice(name: 'Account', choices: ['dev', 'staging', 'production', 'R&D'], description: 'The account to deploy the monitor on')
+        choice(name: 'Account', choices: ['dev', 'staging', 'production', 'R&D'], description: 'The account to deploy on')
+        choice(name: 'Region', choices: ['us-east-1'], description: 'The region to deploy on')
         choice(name: 'ServerlessCommand', choices: ['deploy', '--version'], description: 'The Serverless command to run')
     }
-    environment {
-        AWS_DEFAULT_REGION = 'us-east-1'
-        ACCOUNT = ""
-        AWS_ACCESS_KEY_ID = """${sh(
-                returnStdout: true,
-                script: "sudo apt-get -q -y update >> /dev/null && sudo apt-get install -y jq >> /dev/null && git clone git@github.com:PerfectoMobileDev/aws-admin.git >> /dev/null && echo -n `cat aws-admin/aws-access-keys.json | jq \'.[] | select(.\"account-name\"==\"${params.Account}\") | .users[] | select(.\"user-arn\" | contains(\"CloudFormationDeployment\")) | .\"access-keys\"[] | select(.\"latest\"==\"true\") | .\"access-key-id\"\' | sed \'s/[][\"]//g\'`"
-            )}""" 
-        AWS_SECRET_ACCESS_KEY = """${sh(
-                returnStdout: true,
-                script: "echo -n `cat aws-admin/aws-access-keys.json | jq \'.[] | select(.\"account-name\"==\"${params.Account}\") | .users[] | select(.\"user-arn\" | contains(\"CloudFormationDeployment\")) | .\"access-keys\"[] | select(.\"latest\"==\"true\") | .\"secret-access-key\"\' | sed \'s/[][\"]//g\'`"
-            )}"""
-    }
+    // environment {
+    //     AWS_DEFAULT_REGION = 'us-east-1'
+    //     ACCOUNT = ""
+    //     AWS_ACCESS_KEY_ID = """${sh(
+    //             returnStdout: true,
+    //             script: "sudo apt-get -q -y update >> /dev/null && sudo apt-get install -y jq >> /dev/null && git clone git@github.com:PerfectoMobileDev/aws-admin.git >> /dev/null && echo -n `cat aws-admin/aws-access-keys.json | jq \'.[] | select(.\"account-name\"==\"${params.Account}\") | .users[] | select(.\"user-arn\" | contains(\"CloudFormationDeployment\")) | .\"access-keys\"[] | select(.\"latest\"==\"true\") | .\"access-key-id\"\' | sed \'s/[][\"]//g\'`"
+    //         )}""" 
+    //     AWS_SECRET_ACCESS_KEY = """${sh(
+    //             returnStdout: true,
+    //             script: "echo -n `cat aws-admin/aws-access-keys.json | jq \'.[] | select(.\"account-name\"==\"${params.Account}\") | .users[] | select(.\"user-arn\" | contains(\"CloudFormationDeployment\")) | .\"access-keys\"[] | select(.\"latest\"==\"true\") | .\"secret-access-key\"\' | sed \'s/[][\"]//g\'`"
+    //         )}"""
+    // }
 
     stages {
-        stage('Tests') {
+         stage('AWS Auth') {
+             steps {
+                 awsCloudFormationDeploymentAuth(${params.Region},${params.Account})
+             }
+         }
+         stage('Tests') {
             steps {
                 sh 'cd nodejs/repository-manager && npm install && ./node_modules/.bin/jest'
             }
