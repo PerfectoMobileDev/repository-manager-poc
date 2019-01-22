@@ -4,7 +4,7 @@ frameworkVersion: ">=1.1.0 <2.0.0"
 
 plugins:
   - serverless-offline
-  
+  - serverless-plugin-git-variables
 provider:
   name: aws
   runtime: nodejs8.10
@@ -21,6 +21,7 @@ custom:
 
 functions:
   getUploadLink:
+    description: ${git:describe}
     handler: handlers/getUploadLink.handle
     events:
       - http:

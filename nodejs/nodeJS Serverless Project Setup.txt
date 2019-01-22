@@ -87,11 +87,21 @@ Open issues:
 13. Guidelines: When is it recommended (Costs, performance)
 14. WAF (https://aws.amazon.com/blogs/compute/amazon-api-gateway-adds-support-for-aws-waf/)
 15. Project tag
+16. NPM package versions - to be fix
+
 
 Local invocation (not really good enough, we want to functioj to run behind API gateway):
 https://serverless.com/framework/docs/providers/aws/cli-reference/invoke-local/
 
 serverless-offline (allows running locally behind API Gateway) (JavaScript, Pyhton and Ruby only):
 https://www.npmjs.com/package/serverless-offline
+
+Installing Plugins
+https://serverless.com/framework/docs/providers/aws/cli-reference/plugin-install/ 
+Recomended plugins:
+https://www.npmjs.com/package/serverless-plugin-git-variables
+https://www.npmjs.com/package/serverless-offline
+
+
 
 
