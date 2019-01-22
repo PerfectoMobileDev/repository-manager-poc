@@ -22,7 +22,7 @@ custom:
 functions:
   getUploadLink:
     # using Git vars here. These are created by the Git plugin. We are using latest tat (git:describe) which is created by Jenkins pipeline.
-    description: ${git:describe}  (${git:sha1})
+    description: ${git:describeLight}  (${git:sha1})
     handler: handlers/getUploadLink.handle
     events:
       - http:
