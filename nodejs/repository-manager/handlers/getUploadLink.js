@@ -8,8 +8,8 @@ const AWS = require('aws-sdk');
 module.exports.handle = (event, context, callback) => {
 
   // example for using a layer
-  console.log("Calling KeyCloak...");
-  KeyCloakAuthentication.printMsg();
+  // console.log("Calling KeyCloak...");
+  // KeyCloakAuthentication.printMsg();
 
   var bucketName = process.env.BUCKET_NAME;
   var path = event.pathParameters.id;
