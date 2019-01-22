@@ -30,7 +30,8 @@ pipeline {
                 sh 'cd nodejs/repository-manager && npm install && ./node_modules/.bin/jest'
             }
         }
-         stage('Create Tag') {
+        // Creating tag that will later be used in the description of the deployed function    
+        stage('Create Tag') {
             steps {
                 sh 'git tag ${JOB_NAME}-${BUILD_NUMBER} && git push origin --tags'
             }
