@@ -77,7 +77,7 @@ Open issues:
 4. Local lambda run
 5. Language - which one?
 6. Version management - by git tag? Lambda support?
-7. Logs (CloudWatch + streram to local terminal with serverless logs -f myFunction -t).
+7. Logs (CloudWatch + streram to local terminal with serverless logs -f myFunction -t + API Gateway).
 8. Layers - done, not sure we need it.
 9. Internal/External services: by default services are public, and we have authentication. If we need private, we can use resource policies as described here:
     https://github.com/serverless/serverless/issues/4926 
