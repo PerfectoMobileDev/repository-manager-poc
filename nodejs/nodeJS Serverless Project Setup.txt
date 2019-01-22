@@ -88,6 +88,8 @@ Open issues:
 14. WAF (https://aws.amazon.com/blogs/compute/amazon-api-gateway-adds-support-for-aws-waf/)
 15. Project tag
 16. NPM package versions - to be fix
+17. Debug local Lambda
+18. Applcaitive monitoring - how?
 
 
 Local invocation (not really good enough, we want to functioj to run behind API gateway):
