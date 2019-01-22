@@ -21,7 +21,7 @@ custom:
 
 functions:
   getUploadLink:
-    description: ${git:describe}
+    description: ${git:branch} - ${git:describe} - ${git:sha1}
     handler: handlers/getUploadLink.handle
     events:
       - http:
