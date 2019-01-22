@@ -22,7 +22,7 @@ pipeline {
     stages {
          stage('AWS Auth') {
              steps {
-                 awsCloudFormationDeploymentAuth(${params.Region},${params.Account})
+                 awsCloudFormationDeploymentAuth("${params.Region}","${params.Account}")
              }
          }
          stage('Tests') {
