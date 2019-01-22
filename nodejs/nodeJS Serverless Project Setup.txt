@@ -70,26 +70,32 @@ test:
 
 https://mctllfjsu4.execute-api.us-east-1.amazonaws.com/stage/uploadlink/samfolder/samobject
 
+Done:
+  - Basic deployment
+  - Unit tests
+  - Jenkins pipeline
+  - Version management - by git plugin and automatic Lamda support
+  - Project tag
+
 Open issues:
-1. How to debug tests in Intellij/VSCode?
-2. Add CORS and expiration to CloudFormation for bucket
-3. Fight cold start: https://serverless.com/blog/keep-your-lambdas-warm/
-4. Local lambda run
-5. Language - which one?
-6. Version management - by git tag? Lambda support?
-7. Logs (CloudWatch + streram to local terminal with serverless logs -f myFunction -t + API Gateway).
-8. Layers - done, not sure we need it.
-9. Internal/External services: by default services are public, and we have authentication. If we need private, we can use resource policies as described here:
+  - Test on Windows
+  - How to debug tests in Intellij/VSCode?
+  - Add CORS and expiration to CloudFormation for bucket
+  - Fight cold start: https://serverless.com/blog/keep-your-lambdas-warm/
+  - Local lambda run
+  - Language - which one?
+  - Logs (CloudWatch + stream to local terminal with serverless logs -f myFunction -t + API Gateway).
+  - Layers - done, not sure we need it.
+  - Internal/External services: by default services are public, and we have authentication. If we need private, we can use resource policies as described here:
     https://github.com/serverless/serverless/issues/4926 
-10. Discovery (Route53? CloudMap?)
-11. authentication and autothrization?
-12. Metrics (pricing?)
-13. Guidelines: When is it recommended (Costs, performance)
-14. WAF (https://aws.amazon.com/blogs/compute/amazon-api-gateway-adds-support-for-aws-waf/)
-15. Project tag
-16. NPM package versions - to be fix
-17. Debug local Lambda
-18. Applcaitive monitoring - how?
+  - Discovery (Route53? CloudMap?)
+  - authentication and autothrization?
+  - Metrics (pricing?)
+  - Guidelines: When is it recommended (Costs, performance)
+  - WAF (https://aws.amazon.com/blogs/compute/amazon-api-gateway-adds-support-for-aws-waf/)
+  - NPM package versions - to be fix
+  - Debug local Lambda
+  - Applcaitive monitoring - how?
 
 
 Local invocation (not really good enough, we want to functioj to run behind API gateway):
@@ -100,6 +106,8 @@ https://www.npmjs.com/package/serverless-offline
 
 Installing Plugins
 https://serverless.com/framework/docs/providers/aws/cli-reference/plugin-install/ 
+List of plugins:
+https://github.com/serverless/plugins
 Recomended plugins:
 https://www.npmjs.com/package/serverless-plugin-git-variables
 https://www.npmjs.com/package/serverless-offline
