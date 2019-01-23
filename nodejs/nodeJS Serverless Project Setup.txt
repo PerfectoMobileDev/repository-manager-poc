@@ -76,14 +76,14 @@ Done:
   - Jenkins pipeline
   - Version management - by git plugin and automatic Lamda support
   - Project tag
+  - Debug local Lambda
 
 Open issues:
+  - Language - which one?
   - Test on Windows
-  - How to debug tests in Intellij/VSCode?
+  - How to debug tests in Intellij?
   - Add CORS and expiration to CloudFormation for bucket
   - Fight cold start: https://serverless.com/blog/keep-your-lambdas-warm/
-  - Local lambda run
-  - Language - which one?
   - Logs (CloudWatch + stream to local terminal with serverless logs -f myFunction -t + API Gateway).
   - Layers - done, not sure we need it.
   - Internal/External services: by default services are public, and we have authentication. If we need private, we can use resource policies as described here:
@@ -94,7 +94,6 @@ Open issues:
   - Guidelines: When is it recommended (Costs, performance)
   - WAF (https://aws.amazon.com/blogs/compute/amazon-api-gateway-adds-support-for-aws-waf/)
   - NPM package versions - to be fix
-  - Debug local Lambda
   - Applcaitive monitoring - how?
 
 
