@@ -112,23 +112,5 @@ Recomended plugins:
 https://www.npmjs.com/package/serverless-plugin-git-variables
 https://www.npmjs.com/package/serverless-offline
 
-Offline debuggins
-
-Need to install sls local?
-
-Debug configuration:
-
-        {
-            "name": "Debug",
-            "type": "node",
-            "request": "launch",
-            "cwd": "${workspaceRoot}/nodejs/repository-manager",
-            "runtimeExecutable": "npm",
-            "runtimeArgs": [
-             "run-script",
-             "debug"
-            ],
-            "port": 9229
-           },
 
 

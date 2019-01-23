@@ -5,14 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug",
+            "name": "DebugMacOS",
             "type": "node",
             "request": "launch",
             "cwd": "${workspaceRoot}/nodejs/repository-manager",
             "runtimeExecutable": "npm",
             "runtimeArgs": [
              "run-script",
-             "debug"
+             "debug-macos"
             ],
             "port": 9229
            },
