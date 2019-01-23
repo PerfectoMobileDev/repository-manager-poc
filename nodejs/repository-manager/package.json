@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "serverless offline -s dev",
-    "debug-macos": "export SLS_DEBUG=* && node --inspect /usr/local/bin/serverless offline -s dev",
+    "debug-macos": "export SLS_DEBUG=* && node $NODE_DEBUG_OPTION --inspect /usr/local/bin/serverless offline -s dev",
     "test": "mocha"
   },
   "keywords": [],

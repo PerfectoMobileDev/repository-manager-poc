@@ -2,3 +2,7 @@ node_modules
 
 # Serverless directories
 .serverless
+
+# IntelliJ files
+.idea
+*.iml

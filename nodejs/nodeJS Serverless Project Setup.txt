@@ -76,7 +76,7 @@ Done:
   - Jenkins pipeline
   - Version management - by git plugin and automatic Lamda support
   - Project tag
-  - Debug local Lambda
+  - Debug local Lambda on MAC (VSCode + IntelliJ)
 
 Open issues:
   - Language - which one?

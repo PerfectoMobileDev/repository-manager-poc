@@ -11,6 +11,7 @@ module.exports.handle = (event, context, callback) => {
   // console.log("Calling KeyCloak...");
   // KeyCloakAuthentication.printMsg();
 
+
   var bucketName = process.env.BUCKET_NAME;
   var path = event.pathParameters.id;
 
