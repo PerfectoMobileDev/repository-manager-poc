@@ -1,5 +1,5 @@
 // __tests__/handler.test.js
-const getUploadLinkHandler = require('../handlers/getUploadLink');
+const S3Utils = require('../util/s3Utils');
 const fs = require('fs');
 const req = require('request');
 const AWS = require('aws-sdk');
@@ -15,7 +15,7 @@ afterAll(async (done) => {
 
 test('create upload link', () => {
     // get upload link
-    getUploadLinkResponse = getUploadLinkHandler.getUploadLink(bucketName,objectPath);
+    getUploadLinkResponse = S3Utils.getUploadLink(bucketName,objectPath);
     expect(getUploadLinkResponse.statusCode).toBe(200);
 });
     

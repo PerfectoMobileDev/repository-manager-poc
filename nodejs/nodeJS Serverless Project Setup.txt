@@ -77,14 +77,17 @@ Done:
   - Version management - by git plugin and automatic Lamda support
   - Project tag
   - Debug local Lambda on MAC (VSCode + IntelliJ)
+  - Logs: 
+      - Lambda: In cloudwatch and also commmandline, e.g.:
+          serverless logs -f getUploadLink --stage dev -t
+  
 
 Open issues:
   - Language - which one?
   - Test on Windows
-  - How to debug tests in Intellij?
   - Add CORS and expiration to CloudFormation for bucket
   - Fight cold start: https://serverless.com/blog/keep-your-lambdas-warm/
-  - Logs (CloudWatch + stream to local terminal with serverless logs -f myFunction -t + API Gateway).
+  - APIGateway logs: https://forum.serverless.com/t/knowledge-sharing-enable-cloud-watch-logs-for-api-gateway-using-serverless/3287
   - Layers - done, not sure we need it.
   - Internal/External services: by default services are public, and we have authentication. If we need private, we can use resource policies as described here:
     https://github.com/serverless/serverless/issues/4926 
