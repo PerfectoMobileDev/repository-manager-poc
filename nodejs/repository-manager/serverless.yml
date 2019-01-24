@@ -5,6 +5,8 @@ frameworkVersion: ">=1.1.0 <2.0.0"
 plugins:
   - serverless-offline
   - serverless-plugin-git-variables
+  - serverless-domain-manager
+
 provider:
   name: aws
   runtime: nodejs8.10
@@ -19,6 +21,17 @@ provider:
 custom:
   region: ${opt:region, self:provider.region}
   bucketName: perfecto-repository-${opt:stage}-${self:custom.region}
+  domains:
+    prod: api.prod.perfectomobile.com
+    staging: api.aws-stg.perfectomobile.com
+    dev: api.aws-dev.perfectomobile.com
+  customDomain:
+    domainName: ${self:custom.domains.${opt:stage}} # selecting the domain based on stage/env
+    stage: ${opt:stage}
+    basePath: repository-manager
+    certificateName: '*.perfectomobile.com'
+    createRoute53Record: true
+    endpointType: 'edge'
 
 functions:
   getUploadLink:

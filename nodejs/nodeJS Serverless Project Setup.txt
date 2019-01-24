@@ -85,6 +85,8 @@ Done:
 Open issues:
   - Language - which one?
   - Test on Windows
+  - Overall Costs
+  - Gradual deployment (Canary https://serverless.com/blog/manage-canary-deployments-lambda-functions-serverless-framework/)
   - Add CORS and expiration to CloudFormation for bucket
   - Fight cold start: https://serverless.com/blog/keep-your-lambdas-warm/
   - APIGateway logs: https://forum.serverless.com/t/knowledge-sharing-enable-cloud-watch-logs-for-api-gateway-using-serverless/3287
@@ -98,6 +100,7 @@ Open issues:
   - WAF (https://aws.amazon.com/blogs/compute/amazon-api-gateway-adds-support-for-aws-waf/)
   - NPM package versions - to be fix
   - Applcaitive monitoring - how?
+  - getting rid of stage in the API URL
 
 
 Local invocation (not really good enough, we want to functioj to run behind API gateway):
@@ -113,6 +116,42 @@ https://github.com/serverless/plugins
 Recomended plugins:
 https://www.npmjs.com/package/serverless-plugin-git-variables
 https://www.npmjs.com/package/serverless-offline
+
+Custom domains
+--------------
+https://serverless.com/blog/serverless-api-gateway-domain/
+
+Steps:
+
+npm install serverless-domain-manager --save-dev
+
+Added plugin:
+
+  plugins:
+    - serverless-domain-manager
+
+Added Custom domain:
+
+    customDomain:
+    domainName: repositorymanager.aws-dev.perfectomobile.com
+    stage: dev
+    basePath: api
+    certificateName: '*.perfectomobile.com'
+    createRoute53Record: true
+    endpointType: 'edge'
+
+serverless create_domain --stage dev
+
+serverless deploy --stage dev
+
+And then API is available under:
+
+https://repositorymanager.aws-dev.perfectomobile.com/api/uploadlink/kuku/muku
+
+TODO:
+
+ - Add acm:ListCertificates to Cloudformati0onDeployment in all accounts
+ - Check deploying under the same domain a few APIs
 
 
 
