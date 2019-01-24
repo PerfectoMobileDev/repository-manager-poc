@@ -12,8 +12,8 @@ module.exports.handle = (event, context, callback) => {
   // KeyCloakAuthentication.printMsg();
 
   var bucketName = process.env.BUCKET_NAME;
-  var path = event.pathParameters.id;
+  var path = decodeURIComponent(event.pathParameters.id);
 
-  const response = S3Utils.getUploadLink(bucketName, path);
+  const response = S3Utils.getDownloadLink(bucketName, path);
   callback(null, response);
 }

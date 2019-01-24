@@ -8,6 +8,7 @@ const bucketName = "perfecto-repository-dev-us-east-1";
 const objectPath = "testfolder/mytestartifact" + ((new Date()).getTime());
 
 var getUploadLinkResponse;
+var getDownloadLinkResponse;
 
 afterAll(async (done) => {
     deleteObject(false,bucketName,objectPath, done);
@@ -41,6 +42,33 @@ test('use upload link', done => {
             validateObjectExistance(true,bucketName,objectPath, done)
         })
       });
+});
+
+test('create download link', () => {
+    getDownloadLinkResponse = S3Utils.getDownloadLink(bucketName,objectPath);
+    expect(getUploadLinkResponse.statusCode).toBe(200);
+});
+
+test('use download link', done => {
+
+    const body = JSON.parse(getDownloadLinkResponse.body);
+    req({
+        method: "GET",
+        url: body.url
+    }, function(err, res, body){
+        expect(res.statusCode).toBe(200);
+        console.log("err:" + JSON.stringify(err));
+        console.log("res:" + JSON.stringify(res));
+        //console.log("body:" + body);
+        fs.readFile('./__tests__/test.png', function(err, data){
+            if(err){
+              return console.log(err);
+            }
+            //TODO: expect(data).toBe(body);
+            done();
+        });
+      })
+
 });
 
 // exists should be true or false, depending on whether you expect the object to exist or not
