@@ -15,6 +15,17 @@
              "debug-macos"
             ],
             "port": 9229
+           },        {
+            "name": "DebugJestMacOS",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceRoot}/nodejs/repository-manager",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+             "run-script",
+             "debug-jest-macos"
+            ],
+            "port": 9229
            },
     ]
 }

@@ -7,6 +7,8 @@ const AWS = require('aws-sdk');
 const bucketName = "perfecto-repository-dev-us-east-1";
 const objectPath = "testfolder/mytestartifact" + ((new Date()).getTime());
 
+const TEST_FILE = './__tests__/test.txt';
+
 var getUploadLinkResponse;
 var getDownloadLinkResponse;
 
@@ -25,7 +27,7 @@ test('use upload link', done => {
     const body = JSON.parse(getUploadLinkResponse.body);
 
     // use the link to upload artifact
-    fs.readFile('./__tests__/test.png', function(err, data){
+    fs.readFile(TEST_FILE, function(err, data){
         if(err){
           return console.log(err);
         }
@@ -60,11 +62,11 @@ test('use download link', done => {
         console.log("err:" + JSON.stringify(err));
         console.log("res:" + JSON.stringify(res));
         //console.log("body:" + body);
-        fs.readFile('./__tests__/test.png', function(err, data){
+        fs.readFile(TEST_FILE, 'utf8', function(err, data){
             if(err){
               return console.log(err);
             }
-            //TODO: expect(data).toBe(body);
+            expect(data).toBe(body);
             done();
         });
       })
