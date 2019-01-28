@@ -83,7 +83,6 @@ Done:
   
 
 Open issues:
-  - Language - which one?
   - Test on Windows
   - Overall Costs
   - Gradual deployment (Canary https://serverless.com/blog/manage-canary-deployments-lambda-functions-serverless-framework/)
@@ -97,7 +96,7 @@ Open issues:
   - authentication and autothrization?
   - Metrics (pricing?)
   - Guidelines: When is it recommended (Costs, performance)
-  - WAF (https://aws.amazon.com/blogs/compute/amazon-api-gateway-adds-support-for-aws-waf/)
+  - WAF (https://aws.amazon.com/blogs/compute/amazon-api-gateway-adds-support-for-aws-waf/) - not supported yet by Serverless, need to follow up on this one
   - NPM package versions - to be fix
   - Applcaitive monitoring - how?
   - getting rid of stage in the API URL
@@ -153,5 +152,25 @@ TODO:
  - Add acm:ListCertificates to Cloudformati0onDeployment in all accounts
  - Check deploying under the same domain a few APIs
 
+---------------
+Authentication
+--------------
+Getting public key from KeyCloak:
+https://auth.perfectomobile.com/auth/realms/mobilecloud-perfectomobile-com
 
+mobilecloud offline token:
+eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJiYVZyVnJ0V2V3ZVN5dk02cEVObzh2QlJzVzBIeUZOY3V6QzdBMkRBT0M0In0.eyJqdGkiOiJjMjQ1OTJkMi1lNzMyLTQ2YWQtYjM5ZS02M2E3NjQ5MzY3YmEiLCJleHAiOjAsIm5iZiI6MCwiaWF0IjoxNTQ4NTk5NjMwLCJpc3MiOiJodHRwczovL2F1dGgucGVyZmVjdG9tb2JpbGUuY29tL2F1dGgvcmVhbG1zL21vYmlsZWNsb3VkLXBlcmZlY3RvbW9iaWxlLWNvbSIsImF1ZCI6Im9mZmxpbmUtdG9rZW4tZ2VuZXJhdG9yIiwic3ViIjoiZDdlYmZhZTktZWM4NC00NGZmLTg5OTYtMzhhZDg4NGJiMjM1IiwidHlwIjoiT2ZmbGluZSIsImF6cCI6Im9mZmxpbmUtdG9rZW4tZ2VuZXJhdG9yIiwibm9uY2UiOiIyZjY2MTY5YS00MmZkLTQ3OWEtYjViZC1mNzRmMWYyNWFmZmIiLCJhdXRoX3RpbWUiOjAsInNlc3Npb25fc3RhdGUiOiJhNjIyOWYyNC1mMGE3LTRkZTQtOTYwMS0zNGUyOTNlNGVjOGQiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7InJlcG9ydGl1bSI6eyJyb2xlcyI6WyJleGVjdXRpb25fYWRtaW4iXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX19.axYPawU20Y42_O8KbdRtN0OwkaBa0QM0yTrZoBzk715vN3OLIo0Ap2jNWIzx83BAK1hVvknMU7g4dpbEEkU6NKAwwrBWuBtrnEnVsCKnTcH8IlUADm71pjlPOSWlGzs-81hkFKHpmHKlbV0OWR8j7Coc8tMF_c-ihKj_q_owo7Wi7-bxJQBLXmKN7Vk89Yf6qxooRZGaMEwcfDSPt1jm529Cqyf2AMKvZoviD4uKwAz7U2lCdd1E0CcmpsEplfTSWPkK7PUQJXlll54iGXGaGvcX0751grK3XbAIBK7WQRccZ3PZjtbU1y2xVkHioFsOACe4jPryxa2p8ffNGDv3wQ
 
+Authorizer event: https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-lambda-authorizer-input.html
+
+Access token from offline token
+refresh_token:OFFLINE-TOKEN
+grant_type:refresh_token
+client_id:offline-token-generator
+URL:https://auth.perfectomobile.com/auth/realms/REALM-NAME/protocol/openid-connect/token
+Don’t forget to mark the x-www-form-urlencoded option
+
+Where we are - deployed authorizer with hard coded realm public key for mobilecloud.
+Created offline key and access key
+TRying to test authorizer and failed.
+Also API is not really protected - why?
