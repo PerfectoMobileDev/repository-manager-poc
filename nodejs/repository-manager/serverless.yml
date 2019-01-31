@@ -5,7 +5,7 @@ frameworkVersion: ">=1.1.0 <2.0.0"
 plugins:
   - serverless-offline
   - serverless-plugin-git-variables
-  # - serverless-domain-manager
+  - serverless-domain-manager
 
 provider:
   name: aws
@@ -21,17 +21,17 @@ provider:
 custom:
   region: ${opt:region, self:provider.region}
   bucketName: perfecto-repository-${opt:stage}-${self:custom.region}
-  # domains:
-  #   prod: api.prod.perfectomobile.com
-  #   staging: api.aws-stg.perfectomobile.com
-  #   dev: api.aws-dev.perfectomobile.com
-  # customDomain:
-  #   domainName: ${self:custom.domains.${opt:stage}} # selecting the domain based on stage/env
-  #   stage: ${opt:stage}
-  #   basePath: repository-manager
-  #   certificateName: '*.perfectomobile.com'
-  #   createRoute53Record: true
-  #   endpointType: 'edge'
+  domains:
+    prod-us-east-1: api.us-east-1.prod.perfectomobile.com
+    staging-us-east-1: api.us-east-1.aws-stg.perfectomobile.com
+    dev-us-east-1: api.us-east-1.aws-dev.perfectomobile.com
+  customDomain:
+    domainName: ${self:custom.domains.${opt:stage}-${self:custom.region}} # selecting the domain based on stage/env
+    stage: ${opt:stage}
+    basePath: repository-manager
+    certificateName: '*.api.perfectomobile.com'
+    createRoute53Record: true
+    endpointType: 'edge'
 
 functions:
   getUploadLink:
@@ -46,7 +46,8 @@ functions:
             # if we want the auth function to be here, use name instead of arn
             arn:  arn:aws:lambda:us-east-1:961701920393:function:keycloak-authorizer-dev-KeycloakLambdaAuthorizer
             resultTtlInSeconds: 0
-            identitySource: method.request.header.Authorization
+            type: request
+            # identitySource: method.request.header.Authorization
     environment:
       BUCKET_NAME: ${self:custom.bucketName}
     tags: 
