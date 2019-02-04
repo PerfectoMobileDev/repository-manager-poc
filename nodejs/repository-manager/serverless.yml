@@ -22,14 +22,14 @@ custom:
   region: ${opt:region, self:provider.region}
   bucketName: perfecto-repository-${opt:stage}-${self:custom.region}
   domains:
-    prod-us-east-1: api.us-east-1.prod.perfectomobile.com
-    staging-us-east-1: api.us-east-1.aws-stg.perfectomobile.com
-    dev-us-east-1: api.us-east-1.aws-dev.perfectomobile.com
+    prod-us-east-1: us-east-1.api.prod.perfectomobile.com
+    staging-us-east-1: us-east-1.api.aws-stg.perfectomobile.com
+    dev-us-east-1: us-east-1.api.aws-dev.perfectomobile.com
   customDomain:
     domainName: ${self:custom.domains.${opt:stage}-${self:custom.region}} # selecting the domain based on stage/env
     stage: ${opt:stage}
     basePath: repository-manager
-    certificateName: '*.api.perfectomobile.com'
+    certificateName: '*.api.dev.perfectomobile.com'
     createRoute53Record: true
     endpointType: 'edge'
 

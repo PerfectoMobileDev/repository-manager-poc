@@ -150,7 +150,7 @@ https://repositorymanager.aws-dev.perfectomobile.com/api/uploadlink/kuku/muku
 TODO:
 
  - Add acm:ListCertificates to Cloudformati0onDeployment in all accounts
- - Check deploying under the same domain a few APIs
+ - How to create certificate? In Dev had to create the DNS in Route53 manually in order to approve the certificate.
 
 customer.api.perfectomobile.com --> api.region.(aws-dev.)perfectomobile.com --> regional API Gateway
 realm is taken from original host name
