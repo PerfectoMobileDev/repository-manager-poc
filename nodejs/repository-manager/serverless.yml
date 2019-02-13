@@ -6,6 +6,7 @@ plugins:
   - serverless-offline
   - serverless-plugin-git-variables
   - serverless-domain-manager
+  - serverless-pseudo-parameters
 
 provider:
   name: aws
@@ -44,7 +45,7 @@ functions:
           method: get
           authorizer: # An AWS API Gateway custom authorizer function
             # if we want the auth function to be here, use name instead of arn
-            arn:  arn:aws:lambda:us-east-1:961701920393:function:keycloak-authorizer-dev-KeycloakLambdaAuthorizer
+            arn:  arn:aws:lambda:${self:custom.region}:#{AWS::AccountId}:function:keycloak-authorizer-${opt:stage}-KeycloakLambdaAuthorizer
             resultTtlInSeconds: 0
             type: request
             # identitySource: method.request.header.Authorization
