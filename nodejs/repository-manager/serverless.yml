@@ -43,12 +43,11 @@ functions:
       - http:
           path: uploadlink/{id+}
           method: get
-          authorizer: # An AWS API Gateway custom authorizer function
-            # if we want the auth function to be here, use name instead of arn
+          authorizer:
             arn:  arn:aws:lambda:${self:custom.region}:#{AWS::AccountId}:function:keycloak-authorizer-${opt:stage}-KeycloakLambdaAuthorizer
-            resultTtlInSeconds: 0
+            resultTtlInSeconds: 300
             type: request
-            # identitySource: method.request.header.Authorization
+            identitySource: method.request.header.PERFECTO-AUTHORIZATION
     environment:
       BUCKET_NAME: ${self:custom.bucketName}
     tags: 
@@ -65,7 +64,15 @@ functions:
       - http:
           path: downloadlink/{id+}
           method: get
+          authorizer:
+            arn:  arn:aws:lambda:${self:custom.region}:#{AWS::AccountId}:function:keycloak-authorizer-${opt:stage}-KeycloakLambdaAuthorizer
+            resultTtlInSeconds: 300
+            type: request
+            identitySource: method.request.header.PERFECTO-AUTHORIZATION
     environment:
       BUCKET_NAME: ${self:custom.bucketName}
     tags: 
       project: architecture
+          
+          
+           
