@@ -2,14 +2,9 @@
 
 const S3Utils = require('../util/s3Utils');
 
-// Example for using a layer
-//const KeyCloakAuthentication = require('keycloak-authentication')
-
 module.exports.handle = (event, context, callback) => {
 
-  // example for using a layer
-  // console.log("Calling KeyCloak...");
-  // KeyCloakAuthentication.printMsg();
+  console.log("Authenticated user: " + event.requestContext.authorizer.principalId);
 
   var bucketName = process.env.BUCKET_NAME;
   var path = decodeURIComponent(event.pathParameters.id);

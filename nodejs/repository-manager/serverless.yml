@@ -21,6 +21,7 @@ provider:
 
 custom:
   region: ${opt:region, self:provider.region}
+  authorizerArn: arn:aws:lambda:${self:custom.region}:#{AWS::AccountId}:function:keycloak-authorizer-${opt:stage}-KeycloakLambdaAuthorizer
   bucketName: perfecto-repository-${opt:stage}-${self:custom.region}
   domains:
     prod-us-east-1: us-east-1.api.prod.perfectomobile.com
@@ -44,7 +45,7 @@ functions:
           path: uploadlink/{id+}
           method: get
           authorizer:
-            arn:  arn:aws:lambda:${self:custom.region}:#{AWS::AccountId}:function:keycloak-authorizer-${opt:stage}-KeycloakLambdaAuthorizer
+            arn: ${self:custom.authorizerArn}
             resultTtlInSeconds: 300
             type: request
             identitySource: method.request.header.PERFECTO-AUTHORIZATION
@@ -65,7 +66,7 @@ functions:
           path: downloadlink/{id+}
           method: get
           authorizer:
-            arn:  arn:aws:lambda:${self:custom.region}:#{AWS::AccountId}:function:keycloak-authorizer-${opt:stage}-KeycloakLambdaAuthorizer
+            arn: ${self:custom.authorizerArn}
             resultTtlInSeconds: 300
             type: request
             identitySource: method.request.header.PERFECTO-AUTHORIZATION
