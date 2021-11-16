@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.387.0",
+    "aws-sdk": "^2.814.0",
     "serverless-pseudo-parameters": "^2.4.0"
   },
   "devDependencies": {
